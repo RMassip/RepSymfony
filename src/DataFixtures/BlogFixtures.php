@@ -53,26 +53,27 @@ class BlogFixtures extends Fixture
         }
 
         $categories = [];
-for ($i=0; $i < 5; $i++){
-    $dateC = DateTimeImmutable::createFromMutable($faker->dateTime());
-    $category = (new Category())->setName($faker->sentence(2))
-                                ->setDescription($faker->paragraph())
-                                ->setImageUrl("https://picsum.photos/360/360?image=".($i+200))
-                                ->setCreatedAt($dateC);
-    $categories[] = $category;
-    $manager->persist($category);
-    $manager->flush();
-}
+        for ($i=0; $i < 5; $i++){
+            $dateC = DateTimeImmutable::createFromMutable($faker->dateTime());
+            $category = (new Category())->setName($faker->sentence(2))
+                                        ->setDescription($faker->paragraph())
+                                        ->setImageUrl("https://picsum.photos/360/360?image=".($i+200))
+                                        ->setCreatedAt($dateC);
+            $categories[] = $category;
+            $manager->persist($category);
+            $manager->flush();
+        }
 
-for ($i = 0; $i < 100; $i ++){
-    $dateArt = DateTimeImmutable::createFromMutable($faker->dateTime());
-    $article= (new Article())->setTitle($faker->sentence(3))
-                             ->setContent($faker->text(80))
-                             ->setImageUrl("https://picsum.photos/360/360?image=".($i+300))
-                             ->setCreatedAt($dateArt)
-                             ->setAuthor($users[rand(0,count($categories)-1)]);
-    $manager->persist($category);
-    $manager->flush();
-}
-}
+        for ($i = 0; $i < 100; $i ++){
+            $dateArt = DateTimeImmutable::createFromMutable($faker->dateTime());
+            $article= (new Article())->setTitle($faker->sentence(3))
+                                    ->setContent($faker->text(80))
+                                    ->setImageUrl("https://picsum.photos/360/360?image=".($i+2))
+                                    ->setCreatedAt($dateArt)
+                                    ->setAuthor($users[rand(0,count($users)-1)])
+                                    ->addCategory($categories[rand(0, count($categories)-1)]);
+            $manager->persist($article);
+            $manager->flush();
+        }
+    }
 }
