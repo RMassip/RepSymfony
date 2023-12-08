@@ -1,0 +1,14 @@
+
+/* Footer */
+#scrollToTop {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 10%;
+  width: 80%;
+  background-color: #008080;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+}
