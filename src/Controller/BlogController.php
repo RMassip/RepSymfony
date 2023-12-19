@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use App\Repository\ArticleRepository;
+use App\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,5 +62,17 @@ class BlogController extends AbstractController
     public function showHello(CategoryRepository $repoCategory):Response{
         $categories = $repoCategory->findAll();
         return $this->render('blog/accueil.html.twig', ['categories' => $categories]);
+    }
+
+    #[Route('blog/type/{type}', name: 'app_artiste_by_type')]
+    public function typesByCategory(TypeRepository $typeRepository, string $type):Response{
+        $artiste = [];
+        $type = $typeRepository->findOneByType($type);
+        $types = $typeRepository->findAll();
+        if($type != null){
+            $artiste = $type->getArtiste();
+        }
+        
+        return $this->render('blog/articles_by_category.html.twig', ['artiste' => $artiste,'types' => $types,'type' => $type->getName(),]);
     }
 }   

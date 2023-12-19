@@ -1,0 +1,29 @@
+{{ form_start(form) }}
+
+    <table class="tabledit">
+        <tbody>
+            <tr>
+                <th>{{ form_label(form.titre)}}</th>
+                <td>{{ form_widget(form.titre) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.dateSortie)}}</th>
+                <td>{{ form_widget(form.dateSortie, {'attr': {'data-date-format': 'DD/MM/YYYY'}}) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.genre)}}</th>
+                <td>{{ form_widget(form.genre) }}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.langue)}}</th>
+                <td>{{ form_widget(form.langue)}}</td>
+            </tr>
+            <tr>
+                <th>{{ form_label(form.photoCouverture)}}</th>
+                <td>{{ form_widget(form.photoCouverture) }}
+            </tr>
+        </tbody>
+    </table><br>
+
+    <button class="button">{{ button_label|default('Save') }}</button><br>
+{{ form_end(form) }}
