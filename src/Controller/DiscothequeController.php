@@ -47,7 +47,12 @@ class DiscothequeController extends AbstractController
     public function show(Chanson $chanson, EntityManagerInterface $entityManager): Response
     {
         // Récupérer les IDs des artistes liés à la chanson
-        $artisteIds = $chanson->getArtistes();
+        $artistes = $chanson->getArtistes();
+        $artisteIds = [];
+
+        foreach ($artistes as $artiste) {
+            $artisteIds[] = $artiste->getId();
+        }
 
         // Charger les artistes à partir des IDs
         $artistes = $entityManager->getRepository(Artiste::class)->findBy(['id' => $artisteIds]);
@@ -57,6 +62,7 @@ class DiscothequeController extends AbstractController
             'artistes' => $artistes,
         ]);
     }
+
 
 
 

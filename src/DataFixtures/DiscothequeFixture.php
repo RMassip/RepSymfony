@@ -17,15 +17,25 @@ class DiscothequeFixture extends Fixture
 
         $faker = Factory::create('fr_FR');
         $types = [];
-        // Création des types
-        for ($i=0; $i < 5; $i++) { 
-            $type = (new Type())->setType($faker->sentence(1))
-                                ->setDescription($faker->text(50));
 
+        $typesData = [
+            ['Auteur', 'Personne qui écrit les paroles des chansons'],
+            ['Compositeur', 'Personne qui compose la musique des chansons'],
+            ['Interprète', 'Personne qui chante ou joue la chanson'],
+            ['Arrangeur', 'Personne qui organise la structure musicale de la chanson'],
+            ['Musicien', "Personne qui joue d'un instrument de musique dans la chanson"],
+        ];
+
+        foreach ($typesData as $typeInfo) {
+            $type = (new Type())
+                ->setType($typeInfo[0])
+                ->setDescription($typeInfo[1]);
+        
             $manager->persist($type);
             $types[] = $type;
-            $manager->flush();
         }
+        
+        $manager->flush();
 
         $chansons = [];
         // Création des chansons
