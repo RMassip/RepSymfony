@@ -15,12 +15,12 @@
                         {{ artiste.nom }} {{ artiste.prenom}}
                     </h2>
                     <div class="article-createdAt">
-                        <p> nait le :{{ artiste.dateNaissance|date('d/m/Y') }}  à  {{ artiste.lieuNaissance}}</p>
+                        <p> Né le {{ artiste.dateNaissance|date('d/m/Y') }}  à  {{ artiste.lieuNaissance}}</p>
                     </div>
                     <p>
                         {{ artiste.description }}
                     </p>
-                    <p> liste des chansons :</p>
+                    <h3> Liste des chansons : </h3><br>
                     <div class="article-categories flex wrap">
                         {% for chanson in artiste.getParticiper() %}
                             <div class="article-category-item badge">
