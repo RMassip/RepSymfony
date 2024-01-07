@@ -3,10 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Artiste;
 use App\Repository\CategoryRepository;
 use App\Repository\ArticleRepository;
+use App\Repository\ArtisteRepository;
+use App\Repository\ChansonRepository;
+use App\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BlogController extends AbstractController
@@ -45,6 +50,13 @@ class BlogController extends AbstractController
         return $this->render('blog/single.html.twig', ['article' => $article,'categories' => $categories]);
     }
 
+    #[Route('/artiste/{id}', name: 'app_single_artiste')]
+    public function artisteSingle(ArtisteRepository $repoArtiste,ChansonRepository $repoChanson, string $id):Response{
+        $artiste = $repoArtiste->find($id);
+        $chansons = $repoChanson->findAll();
+        return $this->render('discotheque/artiste_single.html.twig', ['artiste' => $artiste,'chansons' => $chansons]);
+    }
+
     #[Route('blog/category/{slug}', name: 'app_articles_by_category')]
     public function articlesByCategory(CategoryRepository $repoCategory, string $slug):Response{
         $articles = [];
@@ -56,6 +68,25 @@ class BlogController extends AbstractController
         
         return $this->render('blog/articles_by_category.html.twig', ['articles' => $articles,'categories' => $categories,'categoryName' => $categorie->getName(),]);
     }
+
+    #[Route('blog/type/{type}', name: 'app_artiste_by_type')]
+    public function typesByCategory(TypeRepository $typeRepository, string $type): Response
+    {
+        $artistes = [];
+        $typeEntity = $typeRepository->findOneByType($type);
+        $types = $typeRepository->findAll();
+        if ($typeEntity != null) {
+            $artistes = $typeEntity->getEtre();
+            dump($artistes);
+        }
+
+        return $this->render('discotheque/artiste_by_type.html.twig', [
+            'artistes' => $artistes,
+            'types' => $types,
+            'typechoix' => $type,
+        ]);
+    }   
+
 
     #[Route('/hello', name: 'hello')]
     public function showHello(CategoryRepository $repoCategory):Response{

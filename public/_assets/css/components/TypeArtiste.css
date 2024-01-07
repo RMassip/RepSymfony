@@ -1,0 +1,9 @@
+.artiste-item {
+    background-color: #000000; /* Fond gris clair */
+    padding: 10px; /* Marge intérieure pour l'espace autour de la boîte */
+    margin: 10px; /* Marge extérieure pour l'espace entre les boîtes */
+}
+
+.artiste-image img {
+    max-width: 100%; /* Assure que l'image ne dépasse pas la largeur de la boîte */
+}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog
+{% endblock %}
+
+{% block body %}
+    <div class="single-article">
+        <div class="articles">
+            <div class="article-image">
+                <img src={{ artiste.photo}} alt="Image de l'artiste : {{ artiste.nom }}">
+            </div>
+            <div class="article-details flex">
+                <div class="article-content-details">
+                    <h2 class="article-title">
+                        {{ artiste.nom }} {{ artiste.prenom}}
+                    </h2>
+                    <div class="article-createdAt">
+                        <p> nait le :{{ artiste.dateNaissance|date('d/m/Y') }}  à  {{ artiste.lieuNaissance}}</p>
+                    </div>
+                    <p>
+                        {{ artiste.description }}
+                    </p>
+                    <p> liste des chansons :</p>
+                    <div class="article-categories flex wrap">
+                        {% for chanson in artiste.getParticiper() %}
+                            <div class="article-category-item badge">
+                                <a href="{{ path('app_chanson_show', {'id': chanson.id}) }}">
+                                    {{ chanson.titre }}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Blog
+{% endblock %}
+
+{% block body %}
+
+    <div class="category-name">
+        <h2>Artiste du type : "{{ typechoix }}"</h2>
+    </div>
+
+    <div class="articles">
+        {% for artiste in artistes %}
+            <a href="{{ path('app_single_artiste', {'id': artiste.id}) }}" class="artiste-item">
+                <div class="artiste-container">
+                    <div class="artiste-image">
+                        <img src="{{ artiste.photo }}" alt="Image de l'artiste : {{ artiste.nom }}">
+                    </div>
+                    <div class="artiste-info">
+                        {{ artiste.nom }} {{ artiste.prenom }}
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
